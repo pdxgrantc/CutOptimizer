@@ -9,5 +9,5 @@ add_subdirectory(optimize)
 
 add_executable(CutOptimizer main.cpp)
 target_link_libraries(CutOptimizer PRIVATE
-        optimize
-        Qt6::Widgets)
+        Qt6::Widgets
+        optimize)
