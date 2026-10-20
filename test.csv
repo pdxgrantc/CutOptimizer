@@ -1,0 +1,28 @@
+N,Outdoor Table Plan,,,,
+M,Oak 13/16,,,,
+K,0.125,,,,
+@,Length,Width,Quantity,Grain direction,label
+@,Leaf parts,,,,
+P,36,3,4,v,Long Frame Piece
+P,25,3,4,v,Short Frame Piece
+P,21,2,28,v,Leaf Slats
+@,Center Parts,,,,
+P,60,3,2,v,Long Frame Piece
+P,36,3,2,v,Short Frame Piece
+P,36,5,1,v,Center
+P,27,2,28,v,Slats
+@,Skirt and Leg Parts,,,,
+P,54,2.5,2,v,Long Skirt
+P,36,2.5,2,v,Short Skirt
+P,28,2,4,v,Leg 1
+P,28,3,4,v,Leg 2
+P,30,1.5,4,v,Leaf Holder
+@,Start to Stock Section,,,,
+,Length,Width,Quantity,Grain Direction,Number
+S,94,5.75,1,v,1
+S,98,7.375,1,v,2
+S,98,5,1,v,3
+S,98,6.25,1,v,4
+S,93.5,8.375,1,v,5
+S,98,6.5,1,v,6
+S,98,8.25,1,v,7
