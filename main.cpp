@@ -10,18 +10,21 @@
 
 #include "optimize/optimize.h"
 
-struct Dimension {
-    float length;
-    float width;
-};
+namespace
+{
+    struct Dimension {
+        float length;
+        float width;
+    };
+}
 
-void drawStocks(QPainter& painter, Optimize* o);
-std::vector<Dimension> loadStocks(Optimize* o);
+static void drawStocks(QPainter& painter, Optimize* o);
+static std::vector<Dimension> loadStocks(Optimize* o);
 
 // Progress bar function
-QProgressBar* createProgressBar(QWidget* parent = nullptr)
+static QProgressBar* createProgressBar(QWidget* parent = nullptr)
 {
-    QProgressBar* bar = new QProgressBar(parent);
+    auto* bar = new QProgressBar(parent);
 
     bar->setRange(0, 100);
     bar->setValue(0);
@@ -38,7 +41,7 @@ public:
         : QWidget(parent), optimize(optimize)
     {
         // Create layout
-        QVBoxLayout* layout = new QVBoxLayout(this);
+        auto* layout = new QVBoxLayout(this);
 
         // Create progress bar
         progressBar = createProgressBar(this);
@@ -54,7 +57,7 @@ public:
     }
 
     // Update progress from elsewhere in the program
-    void setProgress(int value)
+    void setProgress(const int value)
     {
         progressBar->setValue(value);
     }
@@ -87,7 +90,7 @@ int main(int argc, char* argv[])
     window.resize(1900, 1000);
     window.show();
 
-    return app.exec();
+    return QApplication::exec();
 }
 
 void drawStocks(QPainter& painter, Optimize* o)
