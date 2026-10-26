@@ -6,7 +6,24 @@
 #include <sstream>
 #include <fstream>
 #include <iostream>
+#include <utility>
 
+Optimize::Optimize(std::string filename)
+{
+    // Test file for validity
+}
+
+std::string Optimize::getName()
+{
+    return name;
+}
+
+void Optimize::setName(std::string newName)
+{
+    this->name = std::move(newName);
+}
+
+/*
 // Non Member Utility Functions
 float stringToFLoat(std::string str);
 
@@ -150,10 +167,9 @@ bool isDuplicatePanel(float length, float width)
     return true;
 }
 
-/*
  * Takes height and width to add to panels vector
- */
-void Panels::addPanel(float length, float width, std::string)
+
+void Panels::addPanel(float length, float width, std::string) const
 {
     Panel newPanel;
     // TODO Check for duplictes in the vector then increment the index
@@ -191,9 +207,7 @@ bool isDuplicateStock(float length, float width)
     return  true;
 }
 
-/*
  * Takes height and width to add to stocks vector
- */
 void Stocks::addStock(float length, float width, std::string)
 {
     Stock newPanel;
@@ -229,3 +243,4 @@ int Stocks::getLength()
 {
     return stocksVec->size();
 }
+*/

@@ -1,6 +1,4 @@
 #include <QApplication>
-#include <QProgressBar>
-#include <QVBoxLayout>
 #include <QWidget>
 #include <QPainter>
 #include <QColor>
@@ -9,74 +7,10 @@
 #include <iostream>
 
 #include "optimize/optimize.h"
+#include "display.cpp"
 
-namespace
-{
-    struct Dimension {
-        float length;
-        float width;
-    };
-}
 
-static void drawStocks(QPainter& painter, Optimize* o);
-static std::vector<Dimension> loadStocks(Optimize* o);
 
-// Progress bar function
-static QProgressBar* createProgressBar(QWidget* parent = nullptr)
-{
-    auto* bar = new QProgressBar(parent);
-
-    bar->setRange(0, 100);
-    bar->setValue(0);
-    bar->setFormat("%p%");
-    bar->setMinimumWidth(300);
-    bar->setFixedHeight(25);
-
-    return bar;
-}
-
-class DrawWidget : public QWidget {
-public:
-    explicit DrawWidget(Optimize* optimize, QWidget* parent = nullptr)
-        : QWidget(parent), optimize(optimize)
-    {
-        // Create layout
-        auto* layout = new QVBoxLayout(this);
-
-        // Create progress bar
-        progressBar = createProgressBar(this);
-
-        // Add progress bar to layout
-        layout->addWidget(progressBar);
-
-        // Keep progress bar at the top
-        layout->addStretch();
-
-        // Example progress value
-        progressBar->setValue(50);
-    }
-
-    // Update progress from elsewhere in the program
-    void setProgress(const int value)
-    {
-        progressBar->setValue(value);
-    }
-
-protected:
-    void paintEvent(QPaintEvent* event) override
-    {
-        QWidget::paintEvent(event);
-
-        QPainter painter(this);
-
-        // Draw stocks
-        // drawStocks(painter, optimize);
-    }
-
-private:
-    Optimize* optimize;
-    QProgressBar* progressBar;
-};
 
 int main(int argc, char* argv[])
 {
@@ -86,15 +20,14 @@ int main(int argc, char* argv[])
 
     DrawWidget window(&optimize);
 
-    window.setWindowTitle("Cut Optimizer");
+    window.setWindowTitle("Cut List Optimizer");
     window.resize(1900, 1000);
     window.show();
 
-    return QApplication::exec();
+    return app.exec();
 }
 
-void drawStocks(QPainter& painter, Optimize* o)
-{
+void drawStocks(QPainter& painter, Optimize* o) {
     std::vector<Dimension> stocks = loadStocks(o);
 
     int x = 50;
@@ -108,25 +41,29 @@ void drawStocks(QPainter& painter, Optimize* o)
             QRectF(x, y, stock.length, stock.width)
         );
 
+        // Move down for the next rectangle
         y += static_cast<int>(stock.width) + 20;
     }
 }
 
-std::vector<Dimension> loadStocks(Optimize* o)
-{
+std::vector<Dimension> loadStocks(Optimize* o) {
     std::vector<Dimension> stockDimensions;
 
     for (int i = 0; i < o->stocks->getLength(); i++) {
-        // Save dimensions for length and width of the current stock
-        float l = o->stocks->getStock(i)->length;
-        float w = o->stocks->getStock(i)->width;
+        // Save values locally
+        float l, w;
+        l = o->stocks->getStock(i)->length;
+        w = o->stocks->getStock(i)->width;
 
-        // Scale to 1000 as the width
-        const float scale = 1000 / l;
+        // Find and apply scale factor such that length is always 100
+        float scale = 1000 / l;
         w = w * scale;
         l = l * scale;
-        Dimension dim{.length = l, .width = w};
 
+        // Add to vector of dimensions
+        Dimension dim;
+        dim.length = l;
+        dim.width = w;
         stockDimensions.push_back(dim);
     }
 

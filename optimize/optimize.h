@@ -3,6 +3,43 @@
 #include <string>
 #include <vector>
 
+#include "fileHandler.h"
+
+// Forward Declarations
+struct panel;
+
+class Optimize
+{
+public:
+    explicit Optimize(std::string filename);
+    void setName(std::string);
+    std::string getName();
+    void loadFromFile(const std::string& filename);
+private:
+    std::string name;
+    vector<panel> stocks;
+    vector<panel> parts;
+};
+
+struct panel // holds data for a part to be cut or a stock sheet to use.
+{
+    std::string label; // Human readable name/label
+    float length;
+    float width;
+};
+
+
+
+
+
+
+
+
+
+
+// Old
+
+/*
 class Panels;
 class Stocks;
 
@@ -40,7 +77,7 @@ private:
 public:
     Panels();
     ~Panels();
-    void addPanel(float, float, std::string);
+    void addPanel(float, float, std::string) const;
     void list();
 };
 
@@ -64,4 +101,4 @@ public:
     void addStock(float, float, std::string);
     void list();
 };
-
+*/
