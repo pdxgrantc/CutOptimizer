@@ -7,31 +7,9 @@
 #include <iostream>
 
 #include "optimize/optimize.h"
+#include "display.cpp"
 
-struct Dimension {
-    float length;
-    float width;
-};
 
-void drawStocks(QPainter& painter, Optimize* o);
-std::vector<Dimension> loadStocks(Optimize* o);
-
-class DrawWidget : public QWidget {
-public:
-    explicit DrawWidget(Optimize* optimize, QWidget* parent = nullptr)
-        : QWidget(parent), optimize(optimize) {
-    }
-
-protected:
-    void paintEvent(QPaintEvent* event) override {
-        QPainter painter(this);
-
-        drawStocks(painter, optimize);
-    }
-
-private:
-    Optimize* optimize;
-};
 
 
 int main(int argc, char* argv[])
