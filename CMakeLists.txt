@@ -11,5 +11,5 @@ add_executable(CutOptimizer main.cpp
         display.cpp
         optimize/fileHandler.h)
 target_link_libraries(CutOptimizer PRIVATE
-        optimize
-        Qt6::Widgets)
+        Qt6::Widgets
+        optimize)
