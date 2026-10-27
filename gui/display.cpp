@@ -19,7 +19,7 @@
 #include <vector>
 #include <iostream>
 
-#include "optimizer/optimize.h"
+#include "../optimizer/optimize.h"
 
 struct Dimension {
     float length;

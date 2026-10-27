@@ -7,7 +7,7 @@
 #include <iostream>
 
 #include "optimizer/optimize.h"
-#include "display.cpp"
+#include "gui/display.cpp"
 
 
 int main(int argc, char* argv[])

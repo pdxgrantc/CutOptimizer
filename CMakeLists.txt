@@ -8,7 +8,8 @@ find_package(Qt6 REQUIRED COMPONENTS Widgets)
 add_subdirectory(optimizer)
 
 add_executable(CutOptimizer main.cpp
-        display.cpp
+        gui/display.cpp
+        optimizer/fileHandler.h
         optimizer/fileHandler.h)
 target_link_libraries(CutOptimizer PRIVATE
         Qt6::Widgets

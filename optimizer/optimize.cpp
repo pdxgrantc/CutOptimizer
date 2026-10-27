@@ -56,7 +56,6 @@ static void printItem(const panel& data)
 
 void Optimize::print() const
 {
-    std::cout << name << '\n';
     std::cout << "Stock count: " << stocks.size() << '\n';
     for (const auto& stock : stocks)
     {
