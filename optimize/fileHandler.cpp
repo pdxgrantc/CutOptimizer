@@ -99,13 +99,20 @@ rawPanelData validateLine(const std::string& index1, const std::string& index2, 
     {
         goto invalidRawPanelData;
     }
+    // We have valid length and width
+    data.length = l.value();
+    data.width = w.value();
+    // If no grain direction default to v
+    std::cout << index4 << std::endl;
+    if (index4.empty())
+    {
+        data.grainDirection = 'v';
+    }
     else
     {
-        data.length = l.value();
-        data.width = w.value();
+        data.grainDirection = index4[0];
     }
-
-    data.grainDirection = index4[0];
+    // Set label
     data.label = std::move(index5);
 
     // Convert the count to an integer
