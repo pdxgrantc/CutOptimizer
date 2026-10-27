@@ -6,7 +6,7 @@
 #include <vector>
 #include <iostream>
 
-#include "optimize/optimize.h"
+#include "optimizer/optimize.h"
 #include "display.cpp"
 
 

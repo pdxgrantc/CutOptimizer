@@ -5,11 +5,11 @@ set(CMAKE_CXX_STANDARD 20)
 
 find_package(Qt6 REQUIRED COMPONENTS Widgets)
 
-add_subdirectory(optimize)
+add_subdirectory(optimizer)
 
 add_executable(CutOptimizer main.cpp
         display.cpp
-        optimize/fileHandler.h)
+        optimizer/fileHandler.h)
 target_link_libraries(CutOptimizer PRIVATE
         Qt6::Widgets
         optimize)
