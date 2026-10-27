@@ -3,7 +3,6 @@
 #include <string>
 #include <vector>
 
-#include "fileHandler.h"
 
 // Forward Declarations
 struct panel;
@@ -12,7 +11,7 @@ struct rawPanelData;
 class Optimize
 {
 public:
-    explicit Optimize(std::string filename);
+    explicit Optimize(const std::string& filename);
     void setName(std::string);
     std::string getName();
     void loadFromFile(const std::string& filename);

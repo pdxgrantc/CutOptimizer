@@ -17,9 +17,16 @@ int main(int argc, char* argv[])
     //QApplication app(argc, argv);
 
     // Read and process csv data
-    Optimize optimize("../test.csv");
+    try {
+        Optimize Optimize("../test.csv");
 
-    optimize.print();
+        // Continue using optimizer
+        Optimize.print();
+    }
+    catch (const std::exception& e) {
+        std::cerr << "Error: " << e.what() << std::endl;
+        return 1;
+    }
 
     /*
     DrawWidget window(&optimize);

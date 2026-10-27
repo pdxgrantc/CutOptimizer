@@ -10,12 +10,10 @@
 #define CUTOPTIMIZER_FILEHANDLER_H
 
 #include <fstream>
-#include <stdexcept>
 #include <string>
 
 #include "optimize.h"
 
-int checkFile(std::string fileName);
 void loadFromFile(const std::string& filename);
 void readLines(std::ifstream file);;
 rawPanelData validateLine(std::string,std::string,std::string,std::string,std::string);

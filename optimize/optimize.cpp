@@ -8,9 +8,20 @@
 #include <iostream>
 #include <utility>
 
-Optimize::Optimize(std::string filename)
+Optimize::Optimize(const std::string& filePath)
 {
-    // Test file for validity
+    // Validate file and open for reading
+    std::ifstream csv(filePath.c_str());
+
+    if (!csv.is_open()) {
+        throw std::runtime_error(
+            "Could not open file: " + filePath
+        );
+    }
+
+    //
+
+    csv.close();
 }
 
 std::string Optimize::getName()
@@ -31,6 +42,26 @@ void Optimize::addPart(const panel& data)
 void Optimize::addStock(const panel& data)
 {
     stocks.push_back(data);
+}
+
+void printItem(panel data)
+{
+    std::cout << data.label << ",\t length: " << data.length << ",\t width: "<< data.width << ",\t grain direction: "<< data.grainDirection << std::endl;
+}
+
+void Optimize::print()
+{
+    std::cout << name << '\n';
+    std::cout << "Stock count: " << stocks.size() << '\n';
+    for (const auto & stock : parts)
+    {
+        printItem(stock);
+    }
+    std::cout << "Part count: " << parts.size() << '\n';
+    for (const auto & part : parts)
+    {
+        printItem(part);
+    }
 }
 
 /*

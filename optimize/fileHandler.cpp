@@ -48,8 +48,7 @@ void Optimize::processLine(std::string line)
     // Conditional logic
     if (tokens.at(0) == "N") // Name in position 1
     {
-        // TODO use set name for optimize class
-        std::string name = tokens.at(1);
+        name = tokens.at(1);
     }
     else if (tokens.at(0) == "P") // Part Line
     {
