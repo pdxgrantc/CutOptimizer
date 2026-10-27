@@ -12,9 +12,7 @@ class Optimize
 {
 public:
     explicit Optimize(const std::string& filename);
-    void setName(std::string);
     std::string getName();
-    void loadFromFile(const std::string& filename);
 
     // panel operations
     // stocks
@@ -24,7 +22,7 @@ public:
     void print();
 private:
     std::string name;
-    float kerf;
+    float kerf{};
     std::vector<panel> stocks;
     std::vector<panel> parts;
     void processLine(std::string line);

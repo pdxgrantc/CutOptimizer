@@ -14,8 +14,7 @@
 
 #include "optimize.h"
 
-void loadFromFile(const std::string& filename);
-void readLines(std::ifstream file);;
+void readLines(std::ifstream file);
 rawPanelData validateLine(std::string,std::string,std::string,std::string,std::string);
 
 /*

@@ -3,10 +3,11 @@
 #include "optimize.h"
 
 #include <string>
-#include <sstream>
 #include <fstream>
 #include <iostream>
-#include <utility>
+#include <iomanip>
+
+#include "fileHandler.h"
 
 Optimize::Optimize(const std::string& filePath)
 {
@@ -19,7 +20,12 @@ Optimize::Optimize(const std::string& filePath)
         );
     }
 
-    //
+    // Read data from csv
+    std::string s;
+    while (std::getline(csv, s))
+    {
+        processLine(s);
+    }
 
     csv.close();
 }
@@ -27,11 +33,6 @@ Optimize::Optimize(const std::string& filePath)
 std::string Optimize::getName()
 {
     return name;
-}
-
-void Optimize::setName(std::string newName)
-{
-    this->name = std::move(newName);
 }
 
 void Optimize::addPart(const panel& data)
@@ -44,20 +45,27 @@ void Optimize::addStock(const panel& data)
     stocks.push_back(data);
 }
 
-void printItem(panel data)
+#include <iomanip>
+
+void printItem(const panel& data)
 {
-    std::cout << data.label << ",\t length: " << data.length << ",\t width: "<< data.width << ",\t grain direction: "<< data.grainDirection << std::endl;
+    std::cout << std::left
+              << std::setw(25) << data.label
+              << "length: " << std::setw(10) << data.length
+              << "width: " << std::setw(10) << data.width
+              << "grain direction: " << data.grainDirection
+              << '\n';
 }
 
 void Optimize::print()
 {
     std::cout << name << '\n';
     std::cout << "Stock count: " << stocks.size() << '\n';
-    for (const auto & stock : parts)
+    for (const auto & stock : stocks)
     {
         printItem(stock);
     }
-    std::cout << "Part count: " << parts.size() << '\n';
+    std::cout << "\nPart count: " << parts.size() << '\n';
     for (const auto & part : parts)
     {
         printItem(part);
