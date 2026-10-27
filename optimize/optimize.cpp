@@ -23,6 +23,16 @@ void Optimize::setName(std::string newName)
     this->name = std::move(newName);
 }
 
+void Optimize::addPart(const panel& data)
+{
+    parts.push_back(data);
+}
+
+void Optimize::addStock(const panel& data)
+{
+    stocks.push_back(data);
+}
+
 /*
 // Non Member Utility Functions
 float stringToFLoat(std::string str);

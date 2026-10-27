@@ -13,9 +13,16 @@
 #include <stdexcept>
 #include <string>
 
+#include "optimize.h"
+
 int checkFile(std::string fileName);
 void loadFromFile(const std::string& filename);
-void readLines(std::ifstream file);
-void processLine(std::string line);
+void readLines(std::ifstream file);;
+rawPanelData validateLine(std::string,std::string,std::string,std::string,std::string);
+
+/*
+ * Functions defined in optimize.h but implementation is elsewhere
+ * void Optimize::processLine(std::string line) defined in optimize.h as part of the optimize class
+**/
 
 #endif //CUTOPTIMIZER_FILEHANDLER_H

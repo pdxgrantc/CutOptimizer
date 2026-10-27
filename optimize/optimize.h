@@ -7,6 +7,7 @@
 
 // Forward Declarations
 struct panel;
+struct rawPanelData;
 
 class Optimize
 {
@@ -15,10 +16,19 @@ public:
     void setName(std::string);
     std::string getName();
     void loadFromFile(const std::string& filename);
+
+    // panel operations
+    // stocks
+    void addStock(const panel& data);
+    // parts
+    void addPart(const panel& data);
+    void print();
 private:
     std::string name;
-    vector<panel> stocks;
-    vector<panel> parts;
+    float kerf;
+    std::vector<panel> stocks;
+    std::vector<panel> parts;
+    void processLine(std::string line);
 };
 
 struct panel // holds data for a part to be cut or a stock sheet to use.
@@ -26,6 +36,17 @@ struct panel // holds data for a part to be cut or a stock sheet to use.
     std::string label; // Human readable name/label
     float length;
     float width;
+    char grainDirection;
+};
+
+struct rawPanelData
+{
+    std::string label;
+    float length;
+    float width;
+    int count;
+    char grainDirection;
+    bool isValid;
 };
 
 
