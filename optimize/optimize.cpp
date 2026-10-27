@@ -12,7 +12,8 @@ Optimize::Optimize(const std::string& filePath)
     // Validate file and open for reading
     std::ifstream csv(filePath.c_str());
 
-    if (!csv.is_open()) {
+    if (!csv.is_open())
+    {
         throw std::runtime_error(
             "Could not open file: " + filePath
         );
@@ -43,28 +44,26 @@ void Optimize::addStock(const panel& data)
     stocks.push_back(data);
 }
 
-#include <iomanip>
-
-void printItem(const panel& data)
+static void printItem(const panel& data)
 {
     std::cout << std::left
-              << std::setw(25) << data.label
-              << "length: " << std::setw(10) << data.length
-              << "width: " << std::setw(10) << data.width
-              << "grain direction: " << data.grainDirection
-              << '\n';
+        << std::setw(25) << data.label
+        << "length: " << std::setw(10) << data.length
+        << "width: " << std::setw(10) << data.width
+        << "grain direction: " << data.grainDirection
+        << '\n';
 }
 
-void Optimize::print()
+void Optimize::print() const
 {
     std::cout << name << '\n';
     std::cout << "Stock count: " << stocks.size() << '\n';
-    for (const auto & stock : stocks)
+    for (const auto& stock : stocks)
     {
         printItem(stock);
     }
     std::cout << "\nPart count: " << parts.size() << '\n';
-    for (const auto & part : parts)
+    for (const auto& part : parts)
     {
         printItem(part);
     }

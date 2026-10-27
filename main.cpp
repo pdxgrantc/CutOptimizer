@@ -10,20 +10,20 @@
 #include "display.cpp"
 
 
-
-
 int main(int argc, char* argv[])
 {
     //QApplication app(argc, argv);
 
     // Read and process csv data
-    try {
+    try
+    {
         Optimize Optimize("../test.csv");
 
         // Continue using optimizer
         Optimize.print();
     }
-    catch (const std::exception& e) {
+    catch (const std::exception& e)
+    {
         std::cerr << "Error: " << e.what() << std::endl;
         return 1;
     }

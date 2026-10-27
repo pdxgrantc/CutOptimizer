@@ -19,7 +19,8 @@ public:
     void addStock(const panel& data);
     // parts
     void addPart(const panel& data);
-    void print();
+    void print() const;
+
 private:
     std::string name;
     float kerf{};
@@ -45,14 +46,6 @@ struct rawPanelData
     char grainDirection;
     bool isValid;
 };
-
-
-
-
-
-
-
-
 
 
 // Old

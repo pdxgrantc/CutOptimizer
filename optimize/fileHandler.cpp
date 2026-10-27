@@ -88,12 +88,13 @@ void Optimize::processLine(const std::string& line)
 
 // takes panel input parameters and then returns a struct with processed data.
 // Value isValid within the struct will signify if there are input errors or invalid values telling
-rawPanelData validateLine(const std::string& index1, const std::string& index2, const std::string& index3, const std::string& index4,
+rawPanelData validateLine(const std::string& index1, const std::string& index2, const std::string& index3,
+                          const std::string& index4,
                           std::string index5)
 {
     rawPanelData data;
-    auto l = stringToFloat(index1);
-    auto w = stringToFloat(index2);
+    const auto l = stringToFloat(index1);
+    const auto w = stringToFloat(index2);
 
     if (!l || !w)
     {
