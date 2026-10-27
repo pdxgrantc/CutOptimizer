@@ -25,7 +25,7 @@ private:
     float kerf{};
     std::vector<panel> stocks;
     std::vector<panel> parts;
-    void processLine(std::string line);
+    void processLine(const std::string& line);
 };
 
 struct panel // holds data for a part to be cut or a stock sheet to use.

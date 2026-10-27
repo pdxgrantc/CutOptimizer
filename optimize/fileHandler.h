@@ -15,6 +15,6 @@
 #include "optimize.h"
 
 void readLines(std::ifstream file);
-rawPanelData validateLine(std::string,std::string,std::string,std::string,std::string);
+rawPanelData validateLine(const std::string&,const std::string&,const std::string&, const std::string&,std::string);
 
 #endif //CUTOPTIMIZER_FILEHANDLER_H

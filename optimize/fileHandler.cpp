@@ -15,9 +15,9 @@
 #include "optimize.h"
 
 // Helper functions
-std::optional<float> stringToFloat(const std::string& str);
+static std::optional<float> stringToFloat(const std::string& str);
 
-void Optimize::processLine(std::string line)
+void Optimize::processLine(const std::string& line)
 {
     std::vector<std::string> tokens;
     std::string token;
@@ -88,7 +88,7 @@ void Optimize::processLine(std::string line)
 
 // takes panel input parameters and then returns a struct with processed data.
 // Value isValid within the struct will signify if there are input errors or invalid values telling
-rawPanelData validateLine(std::string index1, std::string index2, std::string index3, std::string index4,
+rawPanelData validateLine(const std::string& index1, const std::string& index2, const std::string& index3, const std::string& index4,
                           std::string index5)
 {
     rawPanelData data;
@@ -113,12 +113,12 @@ rawPanelData validateLine(std::string index1, std::string index2, std::string in
     {
         data.count = std::stoi(index3);
     }
-    catch (const std::invalid_argument& e)
+    catch ([[maybe_unused]] const std::invalid_argument& e)
     {
         std::cerr << "Error: Invalid count in " << index5 << "." << std::endl;
         goto invalidRawPanelData;
     }
-    catch (const std::out_of_range& e)
+    catch ([[maybe_unused]] const std::out_of_range& e)
     {
         std::cerr << "Error: Invalid count in " << index5 << "." << std::endl;
         goto invalidRawPanelData;
@@ -129,6 +129,11 @@ rawPanelData validateLine(std::string index1, std::string index2, std::string in
     goto rawPanelDataReturn;
 
 invalidRawPanelData:
+    data.length = 0;
+    data.width = 0;
+    data.count = 0;
+    data.grainDirection = ' ';
+    data.label = "";
     data.isValid = false;
 
 rawPanelDataReturn:
