@@ -39,9 +39,30 @@ protected:
     void paintEvent(QPaintEvent* event) override {
         QPainter painter(this);
 
-        drawStocks(painter, optimize);
+        //drawStocks(painter, optimize);
     }
 
 private:
     Optimize* optimize;
 };
+
+/*
+void drawStocks(QPainter& painter, Optimize* o) {
+    std::vector<Dimension> stocks = loadStocks(o);
+
+    int x = 50;
+    int y = 50;
+
+    for (const auto& stock : stocks) {
+        painter.setPen(Qt::black);
+        painter.setBrush(Qt::green);
+
+        painter.drawRect(
+            QRectF(x, y, stock.length, stock.width)
+        );
+
+        // Move down for the next rectangle
+        y += static_cast<int>(stock.width) + 20;
+    }
+}
+*/

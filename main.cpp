@@ -9,18 +9,19 @@
 #include "optimizer/optimize.h"
 #include "gui/display.cpp"
 
+static void windowSetup(DrawWidget&, const std::string&);
 
 int main(int argc, char* argv[])
 {
-    //QApplication app(argc, argv);
+    QApplication app(argc, argv);
 
+    Optimize *optimizer;
     // Read and process csv data
     try
     {
-        Optimize Optimize("../test.csv");
-
+        optimizer = new Optimize("../test.csv");
         // Continue using optimizer
-        Optimize.print();
+        optimizer->print();
     }
     catch (const std::exception& e)
     {
@@ -28,33 +29,23 @@ int main(int argc, char* argv[])
         return 1;
     }
 
-    /*
-    DrawWidget window(&optimize);
-    window.setWindowTitle("Cut List Optimizer");
-    window.resize(1900, 1000);
-    window.show();
+    std::string csvName = optimizer->getName();
+    std::string windowName = "Cut Optimizer";
+    if (!csvName.empty())
+    {
+        windowName = windowName + " - " + csvName;
+    }
+
+    DrawWidget window(optimizer);
+    windowSetup(window, windowName);
 
     return app.exec();
-    */
 }
 
-/*
-void drawStocks(QPainter& painter, Optimize* o) {
-    std::vector<Dimension> stocks = loadStocks(o);
+void windowSetup(DrawWidget& window, const std::string& windowName)
+{
 
-    int x = 50;
-    int y = 50;
-
-    for (const auto& stock : stocks) {
-        painter.setPen(Qt::black);
-        painter.setBrush(Qt::green);
-
-        painter.drawRect(
-            QRectF(x, y, stock.length, stock.width)
-        );
-
-        // Move down for the next rectangle
-        y += static_cast<int>(stock.width) + 20;
-    }
+    window.setWindowTitle(QString::fromStdString(windowName));
+    window.resize(1900, 1000);
+    window.show();
 }
-*/

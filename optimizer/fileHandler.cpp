@@ -2,8 +2,6 @@
 // Created by Grant on 10/25/2026.
 //
 
-#include "fileHandler.h"
-
 #include <stdexcept>
 #include <string>
 #include <utility>
@@ -13,6 +11,7 @@
 #include <optional>
 
 #include "optimize.h"
+#include "fileHandler.h"
 
 // Helper functions
 static std::optional<float> stringToFloat(const std::string& str);
