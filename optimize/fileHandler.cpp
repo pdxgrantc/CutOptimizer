@@ -6,14 +6,16 @@
 
 #include <stdexcept>
 #include <string>
+#include <utility>
 #include <vector>
 #include <sstream>
 #include <iostream>
+#include <optional>
 
 #include "optimize.h"
 
 // Helper functions
-static float stringToFloat(const std::string& str);
+std::optional<float> stringToFloat(const std::string& str);
 
 void Optimize::processLine(std::string line)
 {
@@ -71,7 +73,15 @@ void Optimize::processLine(std::string line)
     }
     else if (tokens.at(0) == "K") // Kerf
     {
-        kerf = stringToFloat(tokens.at(1));
+        auto k = stringToFloat(tokens.at(1));
+        if (!k)
+        {
+            kerf = 0;
+        }
+        else
+        {
+            kerf = k.value();
+        }
     }
     // If nothing else do nothing
 }
@@ -82,10 +92,21 @@ rawPanelData validateLine(std::string index1, std::string index2, std::string in
                           std::string index5)
 {
     rawPanelData data;
-    data.length = stringToFloat(index1);
-    data.width = stringToFloat(index2);
-    data.grainDirection = index4[0]; // TODO check if this can handle the empty string case
-    data.label = index5;
+    auto l = stringToFloat(index1);
+    auto w = stringToFloat(index2);
+
+    if (!l || !w)
+    {
+        goto invalidRawPanelData;
+    }
+    else
+    {
+        data.length = l.value();
+        data.width = w.value();
+    }
+
+    data.grainDirection = index4[0];
+    data.label = std::move(index5);
 
     // Convert the count to an integer
     try
@@ -94,24 +115,13 @@ rawPanelData validateLine(std::string index1, std::string index2, std::string in
     }
     catch (const std::invalid_argument& e)
     {
-        std::cerr << "Error: String is not a valid integer." << std::endl;
+        std::cerr << "Error: Invalid count in " << index5 << "." << std::endl;
         goto invalidRawPanelData;
     }
     catch (const std::out_of_range& e)
     {
-        std::cerr << "Error: Number is out of integer range." << std::endl;
+        std::cerr << "Error: Invalid count in " << index5 << "." << std::endl;
         goto invalidRawPanelData;
-    }
-
-    // validity check for length and width
-    if (data.length < 0 || data.width < 0)
-    {
-        goto invalidRawPanelData;
-    }
-    // validity check for grain direction
-    if (data.grainDirection != 'h' && data.grainDirection != 'v')
-    {
-        data.grainDirection = 'v';
     }
 
     // All other cases mean the data is valid
@@ -127,26 +137,26 @@ rawPanelDataReturn:
 
 /*
  * @brief converts a std string to a float
- * @return will return -1 if invalid or the float
+ * @return will return std::nullopt if the result is invalid
  */
-float stringToFloat(const std::string& str)
+std::optional<float> stringToFloat(const std::string& str)
 {
-    float f = 0;
     try
     {
-        f = std::stof(str);
-    }
-    catch (const std::invalid_argument& e)
-    {
-        // TODO Add error list for invalid input
-        std::cerr << "Invalid argument: String could not be converted." << std::endl;
-        return -1; // for invalid line in csv
-    }
-    catch (const std::out_of_range& e)
-    {
-        std::cerr << "Out of range: Number is too large for a float." << std::endl;
-        return -1;
-    }
+        size_t pos = 0;
+        const float f = std::stof(str, &pos);
 
-    return f;
+        if (pos != str.length() || f < 0)
+            return std::nullopt;
+
+        return f;
+    }
+    catch (const std::invalid_argument&)
+    {
+        return std::nullopt;
+    }
+    catch (const std::out_of_range&)
+    {
+        return std::nullopt;
+    }
 }

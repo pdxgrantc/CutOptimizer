@@ -21,7 +21,7 @@ P,30,1.5,4,v,Leaf Holder
 @,Start to Stock Section,,,,
 @,Length,Width,Quantity,Grain Direction,Number
 S,94,5.75,1,v,1
-S,98,7.375,1,v,2
+S,98,7.375,1,,2
 S,98,5,1,v,3
 S,98,6.25,1,v,4
 S,93.5,8.375,1,v,5
