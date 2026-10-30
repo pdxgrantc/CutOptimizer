@@ -44,7 +44,6 @@ int main(int argc, char* argv[])
 
 void windowSetup(DrawWidget& window, const std::string& windowName)
 {
-
     window.setWindowTitle(QString::fromStdString(windowName));
     window.resize(1900, 1000);
     window.show();
