@@ -1,7 +1,6 @@
 #include <QApplication>
 #include <QWidget>
 #include <QPainter>
-#include <QColor>
 #include <string>
 #include <iostream>
 
