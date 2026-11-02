@@ -15,14 +15,10 @@
 #include <QWidget>
 #include <QPainter>
 #include <QColor>
-#include <string>
 #include <vector>
-#include <iostream>
 
 #include "../optimizer/optimize.h"
 #include "gui.h"
-
-
 
 DrawWidget::DrawWidget(Optimize* optimize, QWidget* parent)
     : QWidget(parent), optimize(optimize)
@@ -46,12 +42,20 @@ void drawStocks(QPainter& painter, Optimize* o) {
         painter.setPen(Qt::black);
         painter.setBrush(Qt::green);
 
-        painter.drawRect(
-            QRectF(x, y, stock.length, stock.width)
-        );
+        QString label = QString::fromStdString(stock.label);
+
+        // Normalize height and width to for a 1000 length
+        float normalizedLength = 1000;
+        float normalizedWidth = stock.width * (normalizedLength / stock.length);
+
+        QRectF rect(x, y,normalizedLength, normalizedWidth);
+        painter.drawRect(rect);
+
+        Qt::Alignment alignment = Qt::AlignCenter;
+        painter.drawText(rect, alignment, label);
 
         // Move down for the next rectangle
-        y += static_cast<int>(stock.width) + 20;
+        y += static_cast<int>(normalizedWidth) + 20;
     }
 }
 

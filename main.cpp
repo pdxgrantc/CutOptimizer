@@ -20,8 +20,6 @@ int main(int argc, char* argv[])
     try
     {
         optimizer = new Optimize("../test.csv");
-        // Continue using optimizer
-        optimizer->print();
     }
     catch (const std::exception& e)
     {
