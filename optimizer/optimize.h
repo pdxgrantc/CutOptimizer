@@ -21,8 +21,8 @@ public:
     void addPart(const panel& data);
     void print() const;
 
-    const std::vector<panel>& getStocks() const;
-    const std::vector<panel>& getParts() const;
+    const std::vector<panel> getStocks() const;
+    const std::vector<panel> getParts() const;
 
 private:
     std::string name;

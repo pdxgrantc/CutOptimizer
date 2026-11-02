@@ -7,7 +7,7 @@
 #include <iostream>
 
 #include "optimizer/optimize.h"
-#include "gui/display.cpp"
+#include "gui/gui.h"
 
 static void windowSetup(DrawWidget&, const std::string&);
 

@@ -44,6 +44,16 @@ void Optimize::addStock(const panel& data)
     stocks.push_back(data);
 }
 
+const std::vector<panel> Optimize::getStocks() const
+{
+    return stocks;
+}
+
+const std::vector<panel> Optimize::getParts() const
+{
+    return parts;
+}
+
 static void printItem(const panel& data)
 {
     std::cout << std::left

@@ -20,35 +20,24 @@
 #include <iostream>
 
 #include "../optimizer/optimize.h"
+#include "gui.h"
 
-struct Dimension {
-    float length;
-    float width;
-};
 
-void drawStocks(QPainter& painter, Optimize* o);
-std::vector<Dimension> loadStocks(Optimize* o);
 
-class DrawWidget : public QWidget {
-public:
-    explicit DrawWidget(Optimize* optimize, QWidget* parent = nullptr)
-        : QWidget(parent), optimize(optimize) {
-    }
+DrawWidget::DrawWidget(Optimize* optimize, QWidget* parent)
+    : QWidget(parent), optimize(optimize)
+{
+}
 
-protected:
-    void paintEvent(QPaintEvent* event) override {
-        QPainter painter(this);
+void DrawWidget::paintEvent(QPaintEvent* event)
+{
+    QPainter painter(this);
 
-        //drawStocks(painter, optimize);
-    }
+    drawStocks(painter, optimize);
+}
 
-private:
-    Optimize* optimize;
-};
-
-/*
 void drawStocks(QPainter& painter, Optimize* o) {
-    std::vector<Dimension> stocks = loadStocks(o);
+    const std::vector<panel> stocks = o->getStocks();
 
     int x = 50;
     int y = 50;
@@ -65,4 +54,4 @@ void drawStocks(QPainter& painter, Optimize* o) {
         y += static_cast<int>(stock.width) + 20;
     }
 }
-*/
+
