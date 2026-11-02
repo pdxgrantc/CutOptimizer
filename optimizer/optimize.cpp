@@ -44,12 +44,12 @@ void Optimize::addStock(const panel& data)
     stocks.push_back(data);
 }
 
-const std::vector<panel> Optimize::getStocks() const
+std::vector<panel> Optimize::getStocks() const
 {
     return stocks;
 }
 
-const std::vector<panel> Optimize::getParts() const
+std::vector<panel> Optimize::getParts() const
 {
     return parts;
 }

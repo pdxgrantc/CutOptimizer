@@ -3,7 +3,6 @@
 #include <QPainter>
 #include <QColor>
 #include <string>
-#include <vector>
 #include <iostream>
 
 #include "optimizer/optimize.h"
@@ -27,7 +26,7 @@ int main(int argc, char* argv[])
         return 1;
     }
 
-    std::string csvName = optimizer->getName();
+    const std::string csvName = optimizer->getName();
     std::string windowName = "Cut Optimizer";
     if (!csvName.empty())
     {
@@ -37,7 +36,8 @@ int main(int argc, char* argv[])
     DrawWidget window(optimizer);
     windowSetup(window, windowName);
 
-    return app.exec();
+    // Return window exit code
+    return QApplication::exec();
 }
 
 void windowSetup(DrawWidget& window, const std::string& windowName)

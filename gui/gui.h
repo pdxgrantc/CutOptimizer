@@ -16,6 +16,6 @@ private:
     Optimize* optimize;
 };;
 
-void drawStocks(QPainter& painter, Optimize* o);
+void drawStocks(QPainter& painter, const Optimize* o);
 
 #endif //CUTOPTIMIZER_DISPLAY_H

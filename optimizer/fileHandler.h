@@ -9,7 +9,6 @@
 #ifndef CUTOPTIMIZER_FILEHANDLER_H
 #define CUTOPTIMIZER_FILEHANDLER_H
 
-#include <fstream>
 #include <string>
 
 #include "optimize.h"

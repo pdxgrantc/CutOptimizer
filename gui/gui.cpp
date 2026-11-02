@@ -32,21 +32,21 @@ void DrawWidget::paintEvent(QPaintEvent* event)
     drawStocks(painter, optimize);
 }
 
-void drawStocks(QPainter& painter, Optimize* o) {
+void drawStocks(QPainter& painter, const Optimize* o) {
     const std::vector<panel> stocks = o->getStocks();
 
-    int x = 50;
     int y = 50;
 
     for (const auto& stock : stocks) {
+        constexpr int x = 50;
         painter.setPen(Qt::black);
         painter.setBrush(Qt::green);
 
         QString label = QString::fromStdString(stock.label);
 
         // Normalize height and width to for a 1000 length
-        float normalizedLength = 1000;
-        float normalizedWidth = stock.width * (normalizedLength / stock.length);
+        constexpr float normalizedLength = 1000;
+        const float normalizedWidth = stock.width * (normalizedLength / stock.length);
 
         QRectF rect(x, y,normalizedLength, normalizedWidth);
         painter.drawRect(rect);
@@ -58,4 +58,3 @@ void drawStocks(QPainter& painter, Optimize* o) {
         y += static_cast<int>(normalizedWidth) + 20;
     }
 }
-
