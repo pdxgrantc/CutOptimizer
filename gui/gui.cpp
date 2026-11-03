@@ -29,13 +29,17 @@ DrawWidget::DrawWidget(Optimize* optimize, QWidget* parent)
     : QWidget(parent), optimize(optimize)
 {
     // QT constructor
-    // Create button
+    // Create import button
     QPushButton* button = new QPushButton("Import CSV", this);
     button->setGeometry(50, 50, 150, 40);
 
-    // Connect button to function
+    // Connect button to file dialogue function
     connect(button, &QPushButton::clicked, this, &DrawWidget::importCSV);
+}
 
+DrawWidget::~DrawWidget()
+{
+    delete optimize;
 }
 
 void DrawWidget::paintEvent(QPaintEvent* event)
