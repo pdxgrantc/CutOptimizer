@@ -5,6 +5,9 @@
 #ifndef CUTOPTIMIZER_DISPLAY_H
 #define CUTOPTIMIZER_DISPLAY_H
 
+#include <QPushButton>
+#include <QStyleOptionButton>
+
 class DrawWidget : public QWidget {
 public:
     explicit DrawWidget(Optimize* optimize, QWidget* parent = nullptr);
@@ -14,6 +17,8 @@ protected:
 
 private:
     Optimize* optimize;
+    QString filename;
+    void importCSV();
 };;
 
 void drawStocks(QPainter& painter, const Optimize* o);

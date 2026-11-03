@@ -23,10 +23,12 @@ public:
 
     std::vector<panel> getStocks() const;
     std::vector<panel> getParts() const;
+    float progress{0};
 
 private:
     std::string name;
     float kerf{};
+
     std::vector<panel> stocks;
     std::vector<panel> parts;
     void processLine(const std::string& line);

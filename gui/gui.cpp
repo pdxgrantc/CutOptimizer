@@ -13,9 +13,14 @@
 
 #include <QApplication>
 #include <QWidget>
+#include <QPushButton>
+#include <QDir>
+#include <QDebug>
 #include <QPainter>
+#include <QFileDialog>
 #include <QColor>
 #include <vector>
+#include <iostream>
 
 #include "../optimizer/optimize.h"
 #include "gui.h"
@@ -23,13 +28,36 @@
 DrawWidget::DrawWidget(Optimize* optimize, QWidget* parent)
     : QWidget(parent), optimize(optimize)
 {
+    // QT constructor
+    // Create button
+    QPushButton* button = new QPushButton("Import CSV", this);
+    button->setGeometry(50, 50, 150, 40);
+
+    // Connect button to function
+    connect(button, &QPushButton::clicked, this, &DrawWidget::importCSV);
+
 }
 
 void DrawWidget::paintEvent(QPaintEvent* event)
 {
     QPainter painter(this);
+    //drawStocks(painter, optimize);
+}
 
-    drawStocks(painter, optimize);
+/*
+ * @brief Function to draw basic ux to allow the use to import a csv
+ */
+void DrawWidget::importCSV()
+{
+    // 1. Open the file dialog
+    filename = QFileDialog::getOpenFileName(
+        this,
+        "Select File",
+        QDir::homePath(),
+        "All Files (*.csv)"
+    );
+
+    update();
 }
 
 void drawStocks(QPainter& painter, const Optimize* o) {

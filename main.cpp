@@ -3,6 +3,7 @@
 #include <QPainter>
 #include <string>
 #include <iostream>
+#include <regex>
 
 #include "optimizer/optimize.h"
 #include "gui/gui.h"
@@ -32,10 +33,11 @@ int main(int argc, char* argv[])
         windowName = windowName + " - " + csvName;
     }
 
+    // Window Setup
     DrawWidget window(optimizer);
     windowSetup(window, windowName);
 
-    // Return window exit code
+    // Kick off qt window and return exit code
     return QApplication::exec();
 }
 
