@@ -54,6 +54,19 @@ std::vector<panel> Optimize::getParts() const
     return parts;
 }
 
+void Optimize::setProgress(int newProgress)
+{
+    if ((newProgress >= 0) && (newProgress <= 100))
+    {
+        progress = newProgress;
+    }
+}
+
+int Optimize::getProgress() const
+{
+    return progress;
+}
+
 static void printItem(const panel& data)
 {
     std::cout << std::left

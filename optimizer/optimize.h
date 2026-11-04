@@ -3,7 +3,6 @@
 #include <string>
 #include <vector>
 
-
 // Forward Declarations
 struct panel;
 struct rawPanelData;
@@ -20,15 +19,16 @@ public:
     // parts
     void addPart(const panel& data);
     void print() const;
-
+    int getProgress() const;
+    void setProgress(int);
     std::vector<panel> getStocks() const;
     std::vector<panel> getParts() const;
-    float progress{0};
+
 
 private:
     std::string name;
     float kerf{};
-
+    int progress{0};
     std::vector<panel> stocks;
     std::vector<panel> parts;
     void processLine(const std::string& line);

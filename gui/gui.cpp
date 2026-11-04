@@ -12,22 +12,16 @@
  */
 
 #include <QApplication>
-#include <QWidget>
-#include <QPushButton>
-#include <QDir>
-#include <QDebug>
-#include <QPainter>
 #include <QFileDialog>
+#include <QLabel>
+#include <QProgressBar>
 #include <QColor>
 #include <vector>
 #include <iostream>
 
-#include <QApplication>
 #include <QWidget>
 #include <QPainter>
 #include <string>
-#include <iostream>
-#include <regex>
 
 #include "../optimizer/optimize.h"
 #include "gui.h"
@@ -37,16 +31,20 @@ GUI::GUI(QWidget* parent)
 {
     // QT constructor
     // Create import button
-    auto* button = new QPushButton("Import CSV", this);
+    button = new QPushButton("Import CSV", this);
     button->setGeometry(50, 50, 150, 40);
 
     // Connect button to file dialogue function
     connect(button, &QPushButton::clicked, this, &GUI::findCSV);
+
+    setupProgressBar();
 }
 
 GUI::~GUI()
 {
     delete optimizer;
+    delete button;
+
 }
 
 void GUI::paintEvent(QPaintEvent* event)
@@ -60,21 +58,26 @@ void GUI::paintEvent(QPaintEvent* event)
  */
 void GUI::findCSV()
 {
-    // 1. Open the file dialog
+    /* TODO uncomment once finished to allow dialogue
     filename = QFileDialog::getOpenFileName(
         this,
         "Select File",
         QDir::homePath(),
         "All Files (*.csv)"
     );
-
     // Save and initialize optimizer with this file.
     setupOptimizer(filename);
+    */
 
+    button->hide();
+    progressBar->show();
+    progressLabel->show();
+
+    setupOptimizer("../test.csv");
     update();
 }
 
-void GUI::setupOptimizer(const QString& filename)
+void GUI::setupOptimizer(const QString& filePath)
 {
 
     // Read and process csv data
@@ -82,9 +85,7 @@ void GUI::setupOptimizer(const QString& filename)
     // TODO handle error if the csv is incorrect for some reason
     try
     {
-        optimizer = new Optimize("../test.csv");
-        // TODO remove once done
-        //optimizer = new Optimize(filename.toStdString());
+        optimizer = new Optimize(filePath.toStdString());
     }
     catch (const std::exception& e)
     {
@@ -101,6 +102,28 @@ void GUI::setupOptimizer(const QString& filename)
 
     // Window setup
     setWindowTitle(QString::fromStdString(windowName));
+}
+
+void GUI::setupProgressBar()
+{
+    progressLabel = new QLabel("Optimizing...", this);
+    progressLabel->setGeometry(50, 30, 300, 20);
+
+    // Create progress bar
+    progressBar = new QProgressBar(this);
+    progressBar->setGeometry(50, 50, 300, 25);
+
+    progressBar->setRange(0, 100);
+    progressBar->setValue(0);
+
+    // Hide both initially
+    progressLabel->hide();
+    progressBar->hide();
+}
+
+void GUI::setProgress() const
+{
+    progressBar->setValue(optimizer->getProgress());
 }
 
 void GUI::drawStocks(QPainter& painter) const
