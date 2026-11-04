@@ -8,42 +8,15 @@
 #include "optimizer/optimize.h"
 #include "gui/gui.h"
 
-static void windowSetup(DrawWidget&, const std::string&);
-
 int main(int argc, char* argv[])
 {
     QApplication app(argc, argv);
 
-    Optimize *optimizer;
-    // Read and process csv data
-    try
-    {
-        optimizer = new Optimize("../test.csv");
-    }
-    catch (const std::exception& e)
-    {
-        std::cerr << "Error: " << e.what() << std::endl;
-        return 1;
-    }
-
-    const std::string csvName = optimizer->getName();
-    std::string windowName = "Cut Optimizer";
-    if (!csvName.empty())
-    {
-        windowName = windowName + " - " + csvName;
-    }
-
-    // Window Setup
-    DrawWidget window(optimizer);
-    windowSetup(window, windowName);
+    GUI window;
+    window.resize(1900, 1000);
+    window.setWindowTitle("Cut Optimizer");
+    window.show();
 
     // Kick off qt window and return exit code
     return QApplication::exec();
-}
-
-void windowSetup(DrawWidget& window, const std::string& windowName)
-{
-    window.setWindowTitle(QString::fromStdString(windowName));
-    window.resize(1900, 1000);
-    window.show();
 }

@@ -22,27 +22,34 @@
 #include <vector>
 #include <iostream>
 
+#include <QApplication>
+#include <QWidget>
+#include <QPainter>
+#include <string>
+#include <iostream>
+#include <regex>
+
 #include "../optimizer/optimize.h"
 #include "gui.h"
 
-DrawWidget::DrawWidget(Optimize* optimize, QWidget* parent)
-    : QWidget(parent), optimize(optimize)
+GUI::GUI(QWidget* parent)
+    : QWidget(parent)
 {
     // QT constructor
     // Create import button
-    QPushButton* button = new QPushButton("Import CSV", this);
+    auto* button = new QPushButton("Import CSV", this);
     button->setGeometry(50, 50, 150, 40);
 
     // Connect button to file dialogue function
-    connect(button, &QPushButton::clicked, this, &DrawWidget::importCSV);
+    connect(button, &QPushButton::clicked, this, &GUI::findCSV);
 }
 
-DrawWidget::~DrawWidget()
+GUI::~GUI()
 {
-    delete optimize;
+    delete optimizer;
 }
 
-void DrawWidget::paintEvent(QPaintEvent* event)
+void GUI::paintEvent(QPaintEvent* event)
 {
     QPainter painter(this);
     //drawStocks(painter, optimize);
@@ -51,7 +58,7 @@ void DrawWidget::paintEvent(QPaintEvent* event)
 /*
  * @brief Function to draw basic ux to allow the use to import a csv
  */
-void DrawWidget::importCSV()
+void GUI::findCSV()
 {
     // 1. Open the file dialog
     filename = QFileDialog::getOpenFileName(
@@ -61,11 +68,44 @@ void DrawWidget::importCSV()
         "All Files (*.csv)"
     );
 
+    // Save and initialize optimizer with this file.
+    setupOptimizer(filename);
+
     update();
 }
 
-void drawStocks(QPainter& painter, const Optimize* o) {
-    const std::vector<panel> stocks = o->getStocks();
+void GUI::setupOptimizer(const QString& filename)
+{
+
+    // Read and process csv data
+    // Try to create the optimizer with the filename
+    // TODO handle error if the csv is incorrect for some reason
+    try
+    {
+        optimizer = new Optimize("../test.csv");
+        // TODO remove once done
+        //optimizer = new Optimize(filename.toStdString());
+    }
+    catch (const std::exception& e)
+    {
+        std::cerr << "Error: " << e.what() << std::endl;
+    }
+
+    // Pull project name from the csv if it exists
+    const std::string csvName = optimizer->getName();
+    std::string windowName = "Cut Optimizer";
+    if (!csvName.empty())
+    {
+        windowName = windowName + " - " + csvName;
+    }
+
+    // Window setup
+    setWindowTitle(QString::fromStdString(windowName));
+}
+
+void GUI::drawStocks(QPainter& painter) const
+{
+    const std::vector<panel> stocks = optimizer->getStocks();
 
     int y = 50;
 

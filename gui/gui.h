@@ -7,21 +7,22 @@
 
 #include <QPushButton>
 #include <QStyleOptionButton>
+#include "../optimizer/optimize.h"
 
-class DrawWidget : public QWidget {
+class GUI : public QWidget {
 public:
-    explicit DrawWidget(Optimize* optimize, QWidget* parent = nullptr);
-    ~DrawWidget();
+    explicit GUI(QWidget* parent = nullptr);
+    ~GUI() override;
 
 protected:
     void paintEvent(QPaintEvent* event);
 
 private:
-    Optimize* optimize;
+    Optimize *optimizer{};
     QString filename;
-    void importCSV();
-};;
-
-void drawStocks(QPainter& painter, const Optimize* o);
+    void findCSV();
+    void setupOptimizer(const QString& filename);
+    void drawStocks(QPainter& painter) const;
+};
 
 #endif //CUTOPTIMIZER_DISPLAY_H
